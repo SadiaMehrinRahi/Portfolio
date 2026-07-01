@@ -2,46 +2,46 @@
 
 Developer + Designer portfolio built with Next.js 14 (App Router) and TypeScript.
 
-## Run locally
+## Run Locally
 
-Must install Node.js 18+ -> Next inside this folder:
+Requires Node.js 18+. Inside the project folder:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open browser: http://localhost:3000
+Open in browser: [http://localhost:3000](http://localhost:3000)
 
-## My info -> Customize
+## Customize My Info
 
-Each and every content in this one file — **`app/data.ts`**।
+All content lives in one file — **`app/data.ts`**
 
-Customize color: `app/globals.css` এর উপরে `:root` এর variable গুলো
-(`--accent`, `--bg` ইত্যাদি) বদলাও।
+To customize colors: edit the `:root` variables at the top of `app/globals.css`
+(`--accent`, `--bg`, etc.)
 
-## Add photo
+## Add Photo
 
-1. `profile.jpg` / `profile.png`
-2. If don't not want any picture then `app/data.ts` এ `photo: ""`
+1. Place `profile.jpg` / `profile.png` inside the `public/` folder
+2. If you don't want a picture, set `photo: ""` in `app/data.ts`
 
 ## Deploy
 
-**Vercel** (Next.js এর নির্মাতা):
+**Vercel** (makers of Next.js) — recommended:
 
-1. GitHub repo -> push 
-2. vercel.com -> import repo
-3. Click Deploy —> live
+1. Push the repo to GitHub
+2. Go to [vercel.com](https://vercel.com) → Import Repo
+3. Click Deploy — it goes live
 
-alternative: Netlify
+**Alternative:** Netlify
 
-## Structure
+## Project Structure
 
 ```
 portfolio/
 ├── app/
 │   ├── data.ts          ← change info
-│   ├── page.tsx         ← layout 
+│   ├── page.tsx         ← layout
 │   ├── layout.tsx       ← metadata / SEO
 │   ├── globals.css      ← styles & colors
 │   └── components/
@@ -50,8 +50,11 @@ portfolio/
 └── ...config files
 ```
 
-## Contact form —> Gmail
+## Contact Form Setup (via Gmail)
 
-1. https://formspree.io -> create an account by using gmail
-2. Create new form —> copy endpoint, example: `https://formspree.io/f/abcdwxyz`।
-3. `app/components/ContactForm.tsx` -> `FORMSPREE_ID = ""` here copy and paste the endpoint `FORMSPREE_ID = "abcdwxyz"`।
+1. Go to [formspree.io](https://formspree.io) and create an account using Gmail
+2. Create a new form → copy the endpoint (example: `https://formspree.io/f/abcdwxyz`)
+3. In `app/components/ContactForm.tsx`, paste the endpoint ID into `FORMSPREE_ID = ""`:
+   ```ts
+   FORMSPREE_ID = "abcdwxyz"
+   ```
