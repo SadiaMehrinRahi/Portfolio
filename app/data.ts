@@ -31,10 +31,9 @@ export const site = {
   photo: "/profile.jpg",
 
   about: [
-    "I'm Sadia, a Computer Science &amp; Engineering graduate from Bangladesh University of Business and Technology (BUBT), with a <span class='accent'>3.71 CGPA</span> and a strong foundation in software engineering and applied AI.",
-    "I am a software developer with an active research focus. My work spans full-stack development and deep learning from building production-ready applications to designing and deploying machine learning systems. I led a five-member team on RT-DeepNIDS, a real-time hybrid network intrusion detection system, with further work in ICU sepsis prediction, malicious-URL detection, and healthcare threat analysis. As a Student Researcher at the Cyber Security Research Hub, I have several publications in progress, including a paper accepted at ML4CS 2026 and invited for a journal extension.",
-    "Alongside my technical work, I hold executive roles at the IEEE BUBT Student Branch and its WIE and RAS chapters, where I help organize technical events and support student development.",  ],
-
+    "I'm Sadia, a Computer Science &amp; Engineering graduate from BUBT (<span class='accent'>3.71 CGPA</span>), a software developer with an active research focus. My work spans full-stack development and deep learning, from production-ready applications to deployed ML models.",
+    "My thesis, RT-DeepNIDS, is a real-time hybrid network intrusion detection system built with a five-member team, alongside further work in ICU sepsis prediction, malicious-URL detection, and healthcare threat analysis. As a Student Researcher at the Cyber Security Research Hub, I have a published paper and several in progress, including one accepted at ML4CS 2026. Beyond research, I hold executive roles across the IEEE BUBT Student Branch and its WIE and RAS chapters.",
+  ],
   now: "Extending my accepted healthcare-security paper (ML4CS 2026) for a CSI journal.",
   // Education
   education: [
@@ -133,7 +132,7 @@ export const site = {
   // Leadership & Volunteering 
   leadership: [
     { role: "Joint General Secretary", org: "IEEE BUBT Student Branch", year: "Nov 2025 – Aug 2026", certUrl: "" },
-    { role: "General Secretary", org: "IEEE BUBT WIE Affinity Group", year: "Jun 2025 – Aug 2026", certUrl: "" },
+    { role: "General Secretary", org: "IEEE BUBT WIE Affinity Group", year: "Jun 2025 – Aug 2026", certUrl: "https://drive.google.com/file/d/1YBTDtXHme0woFIgUNi6hnmmEZwbGWdS6/view?usp=drive_link" },
     { role: "Joint General Secretary", org: "IEEE RAS BUBT Chapter", year: "Aug 2025 – Aug 2026", certUrl: "" },
     { role: "Event-Coordinator (In-Charge)", org: "IEEE BUBT Student Branch", year: "Jan 2024 – May 2025", certUrl: "https://drive.google.com/file/d/143IpsFODAFzgRVxi0gLMsAMVos1JuLRl/view?usp=drive_link" },
     { role: "Content Writer", org: "IEEE BUBT Student Branch", year: "Jan 2023 – Jan 2024", certUrl: "https://drive.google.com/file/d/14XO2_yyYfL5EDVxJ_WCf2H7rlPLodqeJ/view?usp=drive_link" },

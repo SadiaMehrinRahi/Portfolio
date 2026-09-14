@@ -7,7 +7,7 @@ const description =
   "Computer Science (AI) graduate building deep learning systems for cybersecurity and healthcare — and the full-stack apps that ship them. Creator of RT-DeepNIDS.";
 
 export const metadata: Metadata = {
-  title: `${site.name} — ${site.role}`,
+  title: `${site.name} · Portfolio`,
   description,
   keywords: [
     "Sadia Mehrin Rahi", "AI Researcher", "Deep Learning", "Cybersecurity",
