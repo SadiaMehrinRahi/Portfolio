@@ -334,7 +334,8 @@ export default function Home() {
         <div className="wrap signoff-grid">
           <div className="reveal">
             <h2>Let&apos;s work together</h2>
-              <p className="lede">Looking for research collaborations, MSc/PhD opportunities, and roles across full-stack development and AI/ML. I&apos;d love to hear from you.</p>            <div className="signoff-lines">
+              <p className="lede">Open to full-time roles, research collaborations, and MSc/PhD opportunities across full-stack development and AI/ML. I&apos;d love to hear from you.</p>            
+              <div className="signoff-lines">
               <span className="signoff-line"><MailIcon /> <a href={GMAIL(site.email)} target="_blank" rel="noreferrer">{site.email}</a></span>
               {/*<span className="signoff-line"><PhoneIcon /> <a href={`tel:${site.phone}`}>{site.phone}</a></span>*/}
               <span className="signoff-line"><PhoneIcon /> Available on request</span>
