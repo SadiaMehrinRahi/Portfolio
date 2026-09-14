@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const FORMSPREE_ID = "xpqgyldp"; // <-- contact form id
+const FORMSPREE_ID = "xpqgyldp";
 
 export default function ContactForm({ email }: { email: string }) {
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">("idle");
@@ -13,7 +13,7 @@ export default function ContactForm({ email }: { email: string }) {
   async function handleSubmit() {
     if (!form.name || !form.email || !form.message) return;
 
-    // If not set Formspree then direct open mail app (fallback)
+    // If Formspree is not set up — opens the mail app directly (fallback)
     if (!endpoint) {
       const subject = encodeURIComponent(`Portfolio message from ${form.name}`);
       const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`);
@@ -61,7 +61,7 @@ export default function ContactForm({ email }: { email: string }) {
           <input
             className="cform-input"
             type="email"
-            placeholder="Your email"
+            placeholder="you@example.com"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
@@ -70,7 +70,7 @@ export default function ContactForm({ email }: { email: string }) {
       <label className="cform-label">Message</label>
       <textarea
         className="cform-textarea"
-        placeholder="Write your message here…"
+        placeholder="Write your message here..."
         value={form.message}
         onChange={(e) => setForm({ ...form, message: e.target.value })}
       />
@@ -83,11 +83,11 @@ export default function ContactForm({ email }: { email: string }) {
       </button>
 
       {status === "ok" && (
-        <div className="cform-note ok">Thanks! Your message has been sent. ✓</div>
+        <div className="cform-note ok">Thank you for reaching out. I&apos;ll get back to you soon.</div>
       )}
       {status === "error" && (
         <div className="cform-note err">
-          Something went wrong — please email me directly at {email}.
+          Something went wrong. Please email me directly at {email}.
         </div>
       )}
     </div>

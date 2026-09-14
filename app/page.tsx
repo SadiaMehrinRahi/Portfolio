@@ -1,112 +1,109 @@
 import { site } from "./data";
 import ScrollReveal from "./components/ScrollReveal";
-import Avatar from "./components/Avatar";
-import NeuralBackground from "./components/NeuralBackground";
-import Typing from "./components/Typing";
+import ScrollProgress from "./components/ScrollProgress";
 import ThesisShowcase from "./components/ThesisShowcase";
 import ContactForm from "./components/ContactForm";
 import ThemeToggle from "./components/ThemeToggle";
 import MobileNav from "./components/MobileNav";
 import { iconFor, MailIcon, PhoneIcon, LocationIcon } from "./components/Icons";
 
-const GMAIL = (email: string) =>
-  `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
+const GMAIL = (email: string) => `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
 
 export default function Home() {
   const year = new Date().getFullYear();
   const socials = site.socials.filter((s) => s.href && s.href.trim() !== "");
+  const initials = site.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
 
   return (
     <>
-      <NeuralBackground />
       <ScrollReveal />
+      <ScrollProgress />
 
-      {/* ===== TOP NAV ===== */}
-      <nav className="topnav">
-        <div className="nav-inner">
-          <span className="nav-brand">
-            {site.initials}
-            <span className="dot">.</span>
-          </span>
-          <div className="nav-links">
-            <a href="#about">About</a>
-            <a href="#thesis">Thesis</a>
-            <a href="#work">Work</a>
-            <a href="#experience">Experience</a>
-            <a href="#research">Research</a>
+      {/* ---- spine label / nav ---- */}
+      <header className="topbar">
+        <div className="topbar-inner">
+          <div className="mark">
+            <span className="mark-name">{site.name}</span>
           </div>
-          <a href="#contact" className="nav-cta">Contact</a>
-          <ThemeToggle />
-          <MobileNav />
-        </div>
-      </nav>
-
-      {/* ===== HERO ===== */}
-      <header id="top">
-        <div className="wrap hero">
-          <Avatar photo={site.photo} initials={initials(site.name)} />
-          <div className="hero-eyebrow">
-            <span className="ping" />
-            {site.role} · {site.location}
-          </div>
-          <h1>
-            <span className="grad">{site.name}</span>
-          </h1>
-          <Typing phrases={site.typingPhrases} />
-          <p>{site.heroLong}</p>
-          <div className="cta-row">
-            <a href="#thesis" className="btn btn-primary">View my thesis</a>
-            <a href="#contact" className="btn btn-ghost">Say hello</a>
-          </div>
-          <div className="hero-social">
-            {socials.map((s) => (
-              <a className="icon-btn" href={s.href} key={s.label} target="_blank" rel="noreferrer" aria-label={s.label}>
-                {iconFor(s.label)}
-              </a>
-            ))}
-            <a className="icon-btn" href={GMAIL(site.email)} target="_blank" rel="noreferrer" aria-label="Email">
-              <MailIcon />
-            </a>
-          </div>
+          <nav className="topnav-links">
+            <a className="hide-sm" href="#about">About</a>
+            <a className="hide-sm" href="#thesis">Thesis</a>
+            <a className="hide-sm" href="#work">Work</a>
+            <a className="hide-sm" href="#research">Research</a>
+            <a className="hide-sm" href="#writing">Writing</a>
+            <a className="hide-sm" href="#log">More</a>
+            <a className="go" href="#contact">Contact</a>
+            <ThemeToggle />
+            <MobileNav />
+          </nav>
         </div>
       </header>
 
-      {/* ===== ABOUT ===== */}
-      <section className="block" id="about">
-        <div className="wrap">
-          <div className="block-head reveal">
-            <span className="num mono">01</span>
-            <h3>About Me</h3>
+      {/* ---- COVER ---- */}
+      <section className="cover" id="top">
+        <div className="wrap cover-inner">
+          <div>
+            <span className="cover-stamp"><span className="live" /> Available for opportunities · {site.location}</span>
+            <h1>{site.name}</h1>
+            <p className="lede">{site.role} building full-stack applications and deep learning models for cybersecurity and healthcare.</p>
+            <div className="doing"><b>Now —</b> {site.now}</div>
+            <div className="cover-actions">
+              <a className="btn btn-solid" href="#thesis">Read the thesis</a>
+              {site.cvUrl && site.cvUrl !== "" && (
+                <a className="btn btn-line" href={site.cvUrl} target="_blank" rel="noreferrer">Download CV</a>
+              )}
+              <a className="btn btn-line" href="#contact">Get in touch</a>
+            </div>
+            <div className="cover-social">
+              {socials.map((s) => (
+                <a href={s.href} key={s.label} target="_blank" rel="noreferrer" aria-label={s.label}>{iconFor(s.label)}</a>
+              ))}
+              <a href={GMAIL(site.email)} target="_blank" rel="noreferrer" aria-label="Email"><MailIcon /></a>
+            </div>
           </div>
-          <div className="about-text reveal">
-            {site.about.map((p, i) => (
-              <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
-            ))}
-            <div className="now-line">
-              <span className="dot" /> {site.now}
+          <div className="cover-photo-wrap">
+            <figure className="cover-photo">
+              <PhotoOrInitials photo={site.photo} initials={initials} />
+              <figcaption className="caption">{site.role}</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      {/* ---- ABOUT ---- */}
+      <section className="entry" id="about">
+        <div className="wrap">
+          <div className="entry-head reveal">
+            <span className="entry-tab">About</span>
+            <h2>Who I am</h2>
+          </div>
+          <div className="note reveal">
+            {site.about.map((p, i) => (<p key={i} dangerouslySetInnerHTML={{ __html: p }} />))}
+          </div>
+          <div className="interests reveal">
+            <span className="interests-label">Research interests</span>
+            <div className="interests-tags">
+              {site.interests.map((it) => (<span key={it}>{it}</span>))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== EDUCATION ===== */}
-      <section className="block" id="education">
+      {/* ---- EDUCATION ---- */}
+      <section className="entry" id="education">
         <div className="wrap">
-          <div className="block-head reveal">
-            <span className="num mono">02</span>
-            <h3>Education</h3>
+          <div className="entry-head reveal">
+            <span className="entry-tab">Education</span>
+            <h2>Where I studied</h2>
           </div>
-          <div className="timeline reveal">
+          <div className="log reveal">
             {site.education.map((e, i) => (
-              <div className="tl-item" key={i}>
-                <div className="tl-dot" />
-                <div className="tl-body">
-                  <div className="tl-top">
-                    <span className="tl-title">{e.school}</span>
-                    <span className="tl-period mono">{e.period}</span>
-                  </div>
-                  <div className="tl-sub">{e.degree}</div>
-                  <div className="tl-detail">{e.detail}</div>
+              <div className="log-row" key={i}>
+                <div className="log-when">{e.period}</div>
+                <div className="log-what">
+                  <h4>{e.school}</h4>
+                  <div className="where">{e.degree}</div>
+                  <p>{e.detail}</p>
                 </div>
               </div>
             ))}
@@ -114,13 +111,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== THESIS (highlighted) ===== */}
-      <section className="block" id="thesis">
+      {/* ---- EXPERIENCE ---- */}
+      <section className="entry" id="experience">
         <div className="wrap">
-          <div className="block-head reveal">
-            <span className="num mono">03</span>
-            <h3>Featured: My Thesis, Live</h3>
-            <p className="sub">A deployed real-time intrusion-detection system you can explore right here.</p>
+          <div className="entry-head reveal">
+            <span className="entry-tab">Record</span>
+            <h2>Experience</h2>
+          </div>
+          <div className="log reveal">
+            {site.experience.map((e, i) => (
+              <div className="log-row" key={i}>
+                <div className="log-when">{e.period}</div>
+                <div className="log-what">
+                  <h4>{e.role}</h4>
+                  <div className="where">{e.org}</div>
+                  <p>{e.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---- THESIS (specimen) ---- */}
+      <section className="entry" id="thesis">
+        <div className="wrap">
+          <div className="entry-head reveal">
+            <span className="entry-tab">Featured</span>
+            <h2>The thesis, running live</h2>
+            <span className="aside">deployed, not just described</span>
           </div>
           <div className="reveal">
             <ThesisShowcase
@@ -131,73 +150,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== SKILLS ===== */}
-      <section className="block" id="skills">
+      {/* ---- WORK ---- */}
+      <section className="entry" id="work">
         <div className="wrap">
-          <div className="block-head reveal">
-            <span className="num mono">04</span>
-            <h3>Skills &amp; Tools</h3>
+          <div className="entry-head reveal">
+            <span className="entry-tab">Work</span>
+            <h2>Things I&apos;ve built</h2>
           </div>
-          <div className="skill-block reveal">
-            <h4>AI / ML &amp; Data Science</h4>
-            <div className="chips">
-              {site.engineering.map((s) => (<span className="chip" key={s}>{s}</span>))}
-            </div>
-            <h4>Web Development</h4>
-            <div className="chips">
-              {site.webdev.map((s) => (<span className="chip" key={s}>{s}</span>))}
-            </div>
-            <h4>Design &amp; Tools</h4>
-            <div className="chips">
-              {site.design.map((s) => (<span className="chip" key={s}>{s}</span>))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== WORK ===== */}
-      <section className="block" id="work">
-        <div className="wrap">
-          <div className="block-head reveal">
-            <span className="num mono">05</span>
-            <h3>Things I&apos;ve Built</h3>
-          </div>
-          <div className="proj-grid">
-            {site.projects.map((p, i) => (
-              <a className="proj reveal" href={p.link} key={p.name} target="_blank" rel="noreferrer">
-                <div className="proj-top">
-                  <span className="proj-label mono">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="proj-metric">{p.metric}</span>
-                </div>
-                <h4>{p.name}</h4>
-                <p>{p.desc}</p>
-                <div className="tags mono">
-                  {p.tags.split("·").map((t) => (<span key={t}>{t.trim()}</span>))}
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== EXPERIENCE ===== */}
-      <section className="block" id="experience">
-        <div className="wrap">
-          <div className="block-head reveal">
-            <span className="num mono">06</span>
-            <h3>Experience &amp; Leadership</h3>
-          </div>
-          <div className="timeline reveal">
-            {site.experience.map((e, i) => (
-              <div className="tl-item" key={i}>
-                <div className="tl-dot" />
-                <div className="tl-body">
-                  <div className="tl-top">
-                    <span className="tl-title">{e.role}</span>
-                    <span className="tl-period mono">{e.period}</span>
+          <div className="log reveal">
+            {site.projects.map((p) => (
+              <div className="log-row" key={p.name}>
+                <div className="log-when">{p.metric}</div>
+                <div className="log-what">
+                  <h4>{p.name}</h4>
+                  <p>{p.desc}</p>
+                  <div className="tags">
+                    {p.tags.split("·").map((t) => (<span key={t}>{t.trim()}</span>))}
                   </div>
-                  <div className="tl-sub">{e.org}</div>
-                  <div className="tl-detail">{e.detail}</div>
+                  <div className="log-links">
+                    {p.link && p.link !== "#" && (
+                      <a className="repo" href={p.link} target="_blank" rel="noreferrer">live demo →</a>
+                    )}
+                    {p.github && p.github !== "" && (
+                      <a className="repo gh" href={p.github} target="_blank" rel="noreferrer"><GitHubMini /> code</a>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -205,38 +182,62 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== RESEARCH ===== */}
-      <section className="block" id="research">
+      {/* ---- SKILLS ---- */}
+      <section className="entry" id="skills">
         <div className="wrap">
-          <div className="block-head reveal">
-            <span className="num mono">07</span>
-            <h3>Research</h3>
+          <div className="entry-head reveal">
+            <span className="entry-tab">Toolkit</span>
+            <h2>What I work with</h2>
           </div>
-          <div className="pub-list reveal">
+          <div className="kits reveal">
+            {site.skillGroups.map((g) => (
+              <div key={g.title}>
+                <div className="kit-name"><span className="dot" />{g.title}</div>
+                <div className="kit-tags">
+                  {g.items.map((s) => (<span key={s}>{s}</span>))}
+                </div>
+                {g.relatedLink && g.relatedLink !== "#" && (
+                  <a className="kit-related" href={g.relatedLink} target="_blank" rel="noreferrer">see it in {g.relatedLabel} →</a>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---- RESEARCH ---- */}
+      <section className="entry" id="research">
+        <div className="wrap">
+          <div className="entry-head reveal">
+            <span className="entry-tab">Research</span>
+            <h2>Publications</h2>
+          </div>
+          <div className="refs reveal">
+            <div className="ref-summary">
+              {site.pubStats.map((s) => (
+                <div className="r" key={s.label}><b>{s.num}</b><span>{s.label}</span></div>
+              ))}
+            </div>
             {site.publications.map((p) => {
               const accepted = /accepted/i.test(p.venue);
+              const published = /published/i.test(p.venue);
+              const inprogress = /in progress|ongoing/i.test(p.venue);
               const hasLink = p.link && p.link.trim() !== "";
               return (
-                <div className="pub" key={p.title}>
-                  <span className="yr mono">{p.year}</span>
-                  <div className="pub-main">
+                <div className="ref" key={p.title}>
+                  <span className="ref-year">{p.year}</span>
+                  <div className="ref-body">
                     <h4>{p.title}</h4>
-                    <div className="venue">
-                      {accepted ? (
-                        <>
-                          {p.venue.replace(/·\s*Accepted/i, "· ")}
-                          <span className="tag-accepted">Accepted</span>
-                        </>
-                      ) : (
-                        p.venue
-                      )}
+                    <div className="where">
+                     {accepted ? (<>{p.venue.replace(/·\s*Accepted/i, "")} <span className="yes">Accepted</span></>)
+                      : published ? (<>{p.venue.replace(/·\s*Published/i, "")} <span className="yes">Published</span></>)
+                      : inprogress ? (<>{p.venue.replace(/·\s*(In progress|Ongoing)/i, "")} <span className="yes">In progress</span></>)
+                      : p.venue}
                     </div>
                   </div>
-                  {hasLink && (
-                    <a className="pub-link" href={p.link} target="_blank" rel="noreferrer" aria-label="Open publication">
-                      ↗
-                    </a>
-                  )}
+                  {hasLink ? (
+                    <a className="ref-open" href={p.link} target="_blank" rel="noreferrer">read →</a>
+                  ) : <span className="ref-open" style={{ opacity: 0 }}>·</span>}
                 </div>
               );
             })}
@@ -244,83 +245,136 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== CONTACT ===== */}
-      <section className="block contact" id="contact">
+      {/* ---- WRITING / BLOG ---- */}
+      <section className="entry" id="writing">
         <div className="wrap">
-          <div className="contact-head reveal">
-            <div className="small mono">08 · WHAT&apos;S NEXT</div>
-            <h3>Get In Touch</h3>
-            <p>
-              Open to research collaborations, MSc/PhD opportunities and roles in AI/ML.
-              Send a message and I&apos;ll get back to you.
-            </p>
+          <div className="entry-head reveal">
+            <span className="entry-tab">Writing</span>
+            <h2>Notes &amp; articles</h2>
           </div>
-
-          <div className="contact-card reveal">
-            <aside className="contact-aside">
-              <span className="aside-badge">
-                <span className="pulse" /> Available for opportunities
-              </span>
-              <h4>Let&apos;s talk.</h4>
-              <p className="aside-sub">
-                Whether it&apos;s a research idea, a role or just a hello — my inbox is open.
-              </p>
-              <div className="aside-divider" />
-              <span className="aside-item">
-                <MailIcon /> <a href={GMAIL(site.email)} target="_blank" rel="noreferrer">{site.email}</a>
-              </span>
-              <span className="aside-item">
-                <PhoneIcon /> <a href={`tel:${site.phone}`}>{site.phone}</a>
-              </span>
-              <span className="aside-item">
-                <LocationIcon /> {site.location}
-              </span>
-              <div className="aside-socials">
-                {socials.map((s) => (
-                  <a href={s.href} key={s.label} target="_blank" rel="noreferrer" aria-label={s.label}>
-                    {iconFor(s.label)}
-                  </a>
-                ))}
+          <div className="log reveal">
+            {site.blog.map((b, i) => (
+              <div className="log-row" key={i}>
+                <div className="log-when">{b.year}</div>
+                <div className="log-what">
+                  <h4>{b.title}</h4>
+                  <div className="where">{b.outlet}</div>
+                  {b.url && b.url !== "" && (
+                    <a className="repo" href={b.url} target="_blank" rel="noreferrer">read the piece →</a>
+                  )}
+                </div>
               </div>
-            </aside>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="contact-form-side">
-              <ContactForm email={site.email} />
+      {/* ---- CERTIFICATIONS (own section) ---- */}
+      <section className="entry" id="certifications">
+        <div className="wrap">
+          <div className="entry-head reveal">
+            <span className="entry-tab">Credentials</span>
+            <h2>Certifications &amp; awards</h2>
+          </div>
+          <div className="log reveal">
+            {site.certifications.map((c, i) => (
+              <div className="log-row" key={i}>
+                <div className="log-when">{c.year}</div>
+                <div className="log-what">
+                  <h4>{c.title}</h4>
+                  <div className="where">{c.issuer}</div>
+                  {c.certUrl && c.certUrl !== "" && (
+                    <a className="cert-btn" href={c.certUrl} target="_blank" rel="noreferrer">View certificate →</a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---- LEADERSHIP + EXTRACURRICULAR (parallel) ---- */}
+      <section className="entry" id="log">
+        <div className="wrap">
+          <div className="entry-head reveal">
+            <span className="entry-tab">Beyond the desk</span>
+            <h2>Leadership &amp; activities</h2>
+          </div>
+          <div className="folio reveal">
+            <div>
+              <h3>Leadership</h3>
+              {site.leadership.map((v, i) => (
+                <div className="folio-item" key={i}>
+                  <div className="t">{v.role}</div>
+                  <div className="m">{v.org} · {v.year}</div>
+                  {v.certUrl && v.certUrl !== "" && (
+                    <a className="cert-btn sm" href={v.certUrl} target="_blank" rel="noreferrer">Certificate →</a>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div>
+              <h3>Volunteering &amp; Activities</h3>
+              {site.volunteering.map((v, i) => (
+                <div className="folio-item" key={i}>
+                  <div className="t">{v.role}</div>
+                  <div className="m">{v.org} · {v.year}</div>
+                  {v.certUrl && v.certUrl !== "" && (
+                    <a className="cert-btn sm" href={v.certUrl} target="_blank" rel="noreferrer">Certificate →</a>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== FOOTER ===== */}
-      <footer>
-        <div className="footer-cta reveal">
-          <span className="footer-cta-label mono">— let&apos;s build something —</span>
-          <a href="#contact" className="footer-cta-link">
-            Start a conversation <span className="arr">→</span>
-          </a>
-          <div className="footer-cta-email">
-            or email me at <a href={GMAIL(site.email)} target="_blank" rel="noreferrer">{site.email}</a>
+      {/* ---- SIGN-OFF / CONTACT ---- */}
+      <section className="signoff" id="contact">
+        <div className="wrap signoff-grid">
+          <div className="reveal">
+            <h2>Let&apos;s work together</h2>
+              <p className="lede">Looking for research collaborations, MSc/PhD opportunities, and roles across full-stack development and AI/ML. I&apos;d love to hear from you.</p>            <div className="signoff-lines">
+              <span className="signoff-line"><MailIcon /> <a href={GMAIL(site.email)} target="_blank" rel="noreferrer">{site.email}</a></span>
+              {/*<span className="signoff-line"><PhoneIcon /> <a href={`tel:${site.phone}`}>{site.phone}</a></span>*/}
+              <span className="signoff-line"><PhoneIcon /> Available on request</span>
+              <span className="signoff-line"><LocationIcon /> {site.location}</span>
+            </div>
+            <div className="signoff-social">
+              {socials.map((s) => (
+                <a href={s.href} key={s.label} target="_blank" rel="noreferrer" aria-label={s.label}>{iconFor(s.label)}</a>
+              ))}
+            </div>
+          </div>
+          <div className="cform-card reveal">
+            <ContactForm email={site.email} />
           </div>
         </div>
-        <div className="footer-simple">
-          <div className="footer-social">
-            {socials.map((s) => (
-              <a className="icon-btn" href={s.href} key={s.label} target="_blank" rel="noreferrer" aria-label={s.label}>
-                {iconFor(s.label)}
-              </a>
-            ))}
-          </div>
-          <div className="footer-credit">
-            Designed &amp; built by {site.name}
-          </div>
-          <div className="footer-copy">© {year} · All rights reserved</div>
-          <a href="#top" className="footer-top">Back to top ↑</a>
-        </div>
-      </footer>
+      </section>
+
+      <footer className="colophon">
+      <div className="colophon-inner">
+        <span>Built & maintained by <span className="sig">Sadia</span></span>
+        <span>© {year} · All rights reserved</span>
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </footer>
     </>
   );
 }
 
-function initials(name: string) {
-  return name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
+function PhotoOrInitials({ photo, initials }: { photo?: string; initials: string }) {
+  if (photo && photo.trim() !== "") {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img className="pic" src={photo} alt={initials} />;
+  }
+  return <div className="pic-fallback">{initials}</div>;
+}
+
+function GitHubMini() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" style={{ width: 14, height: 14, fill: "currentColor", verticalAlign: "-2px" }}>
+      <path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z" />
+    </svg>
+  );
 }

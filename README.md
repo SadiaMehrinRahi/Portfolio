@@ -1,60 +1,51 @@
-# Portfolio — Next.js
+# Portfolio — "Field Notebook" edition
 
-Developer + Designer portfolio built with Next.js 14 (App Router) and TypeScript.
+A completely new design: a researcher's field notebook. Deep slate "cover"
+(hero) with warm paper "pages" for the content, a terracotta accent, and
+serif headings (Fraunces + Newsreader) with Inter for body text.
 
-## Run Locally
+Same content engine as before — everything lives in `app/data.ts`.
 
-Requires Node.js 18+. Inside the project folder:
-
+## Run
 ```bash
 npm install
 npm run dev
 ```
+Open http://localhost:3000
 
-Open in browser: [http://localhost:3000](http://localhost:3000)
+## Edit your content
+All text, projects, skills, publications, certifications, volunteering →
+`app/data.ts`. Colors → the `:root` block at the top of `app/globals.css`.
 
-## Customize My Info
+## Photo
+Put `profile.jpg` in `public/`. It shows as a taped-in photo on the cover.
+No photo → your initials show instead.
 
-All content lives in one file — **`app/data.ts`**
+## Contact form
+Set your Formspree ID in `app/components/ContactForm.tsx` (see the comment
+at the top of that file) so messages reach your Gmail.
 
-To customize colors: edit the `:root` variables at the top of `app/globals.css`
-(`--accent`, `--bg`, etc.)
+## Theme
+Light (paper) by default; the button in the top bar switches to a dark cover.
 
-## Add Photo
+## New: CV, sharing preview, analytics
 
-1. Place `profile.jpg` / `profile.png` inside the `public/` folder
-2. If you don't want a picture, set `photo: ""` in `app/data.ts`
+### CV download
+Put your CV as `public/Sadia_Mehrin_Rahi_CV.pdf` (or change `cvUrl` in
+`app/data.ts`). The "Download CV" button on the cover then works. Empty
+`cvUrl` hides the button.
 
-## Deploy
+### Social share preview (Open Graph)
+Add an image `public/og.png` (1200×630) — this is what shows when the site
+is shared on LinkedIn / Twitter / WhatsApp. Also add `public/favicon.ico`
+for the browser tab icon.
 
-**Vercel** (makers of Next.js) — recommended:
+### Visitor analytics (silent, professional)
+After deploying on Vercel, enable **Web Analytics** in your Vercel project
+dashboard (one click) — it counts visitors privately, no visible counter.
+Or run `npm i @vercel/analytics` and add `<Analytics />` from
+`@vercel/analytics/react` inside `app/layout.tsx`'s body.
 
-1. Push the repo to GitHub
-2. Go to [vercel.com](https://vercel.com) → Import Repo
-3. Click Deploy — it goes live
-
-**Alternative:** Netlify
-
-## Project Structure
-
-```
-portfolio/
-├── app/
-│   ├── data.ts          ← change info
-│   ├── page.tsx         ← layout
-│   ├── layout.tsx       ← metadata / SEO
-│   ├── globals.css      ← styles & colors
-│   └── components/
-│       └── ScrollReveal.tsx
-├── package.json
-└── ...config files
-```
-
-## Contact Form Setup (via Gmail)
-
-1. Go to [formspree.io](https://formspree.io) and create an account using Gmail
-2. Create a new form → copy the endpoint (example: `https://formspree.io/f/abcdwxyz`)
-3. In `app/components/ContactForm.tsx`, paste the endpoint ID into `FORMSPREE_ID = ""`:
-   ```ts
-   FORMSPREE_ID = "abcdwxyz"
-   ```
+### Research interests & Writing
+Both live in `app/data.ts` (`interests` and `blog`). Add your blog URL to
+each blog entry's `url` to make the "read the piece →" link appear.
